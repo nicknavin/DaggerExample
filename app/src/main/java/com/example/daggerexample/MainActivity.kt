@@ -7,12 +7,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val emailService = EmailService()
-        val userRepository = UserRepository()
-        val userRegistrationService = UserRegistrationService(
-            emailService = emailService,
-            userRepository = userRepository
-        )
+        val component = DaggerUserRegistrationComponent.builder().build();
+        val userRegistrationService=component.getUser()
+        val emailService = component.getEmailService()
         userRegistrationService.registerUser("nimade.navin@gmail.com", "111111")
     }
 }
